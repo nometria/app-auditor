@@ -20,7 +20,6 @@ def _github_headers() -> Dict[str, str]:
     global GITHUB_HEADERS
     if GITHUB_HEADERS is not None:
         return GITHUB_HEADERS
-    import os
     token = os.getenv("GITHUB_TOKEN")
     h = {"Accept": "application/vnd.github+json"}
     if token:
@@ -166,6 +165,7 @@ def analyze_repo_url(repo_url: str) -> Dict[str, Any]:
 
 
 if __name__ == "__main__":
+    import sys
     import json
     logging.basicConfig(level=logging.INFO)
     url = sys.argv[1] if len(sys.argv) > 1 else "https://github.com/vercel/next.js"
