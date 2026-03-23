@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "app-auditor"
-version = "0.1.0"
+version = "0.1.1"
 description = "Detect tech stack and production-readiness issues from a live URL or GitHub repo. Zero config, one command."
 readme = "README.md"
 license = { text = "MIT" }
@@ -26,6 +26,7 @@ packages = ["src/app_auditor"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src"]
 
 [project.urls]
 Repository = "https://github.com/nometria/app-auditor"
