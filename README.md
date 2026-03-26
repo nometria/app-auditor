@@ -8,7 +8,7 @@
 
 ```bash
 # Clone and install
-git clone https://github.com/ownmy-app/app-auditor
+git clone https://github.com/nometria/app-auditor
 cd app-auditor
 pip install -e .
 
