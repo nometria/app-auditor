@@ -1,16 +1,6 @@
 # app-auditor
 
-<div align="center">
-
-**[Nometria](https://nometria.com)** takes AI-built apps to production on AWS — secure, scalable, ready for real users.
-
-<sub><i>Before deploying any app, we audit the tech stack and surface production-readiness issues. This is the tool we use internally -- now open source.</i></sub>
-
-[![Deploy with Nometria](https://img.shields.io/badge/Deploy%20with-Nometria-111827?style=for-the-badge)](https://nometria.com)
-
-</div>
-
----
+Built by the [Nometria](https://nometria.com) team — we take AI-built apps to production.
 
 > Detect tech stack and surface production-readiness issues from any live URL or GitHub repo. One command, zero config.
 
@@ -157,6 +147,3 @@ Risks:
   • Hosting on Vercel/Netlify: ensure env vars and serverless limits are documented.
 ```
 
----
-
-<p align="center">Made with ❤️ by <a href="https://nometria.com">Nometria</a> — deploy AI apps to production in one click</p>
