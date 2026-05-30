@@ -1,4 +1,4 @@
-"""Tests for app-auditor — no live HTTP required (uses mocking)."""
+"""Tests for app-auditor - no live HTTP required (uses mocking)."""
 import sys
 import os
 import pytest

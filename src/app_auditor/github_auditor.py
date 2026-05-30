@@ -114,11 +114,11 @@ def analyze_repo(owner: str, repo: str) -> Dict[str, Any]:
 
     missing = []
     if not detected["docker"]:
-        missing.append("No Dockerfile found — containerization recommended for production.")
+        missing.append("No Dockerfile found - containerization recommended for production.")
     if not detected["github_actions"]:
-        missing.append("No GitHub Actions workflows — consider adding CI/CD.")
+        missing.append("No GitHub Actions workflows - consider adding CI/CD.")
     if not detected["env_example"]:
-        missing.append("No .env.example — document required env vars for deployment.")
+        missing.append("No .env.example - document required env vars for deployment.")
 
     suggestions = []
     if detected["vite"] and not detected["docker"]:
