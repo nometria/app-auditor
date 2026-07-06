@@ -109,3 +109,46 @@ def test_analyze_repo_detects_docker(monkeypatch):
     assert result["detected"]["env_example"] is True
     # No Dockerfile missing warning since it's present
     assert not any("dockerfile" in m.lower() for m in result["missing"])
+    # New: checklist, score and grade are present.
+    assert isinstance(result["checklist"], list) and result["checklist"]
+    assert 0 <= result["score"] <= 100
+    assert result["grade"] in ("A+", "A", "B", "C", "D", "F")
+
+
+def test_analyze_repo_score_and_languages(monkeypatch):
+    """A bare repo missing README/CI/Docker scores low; languages are counted."""
+    from app_auditor import github_auditor
+
+    def mock_tree(owner, repo):
+        return [
+            {"path": "src/app.py", "type": "blob"},
+            {"path": "src/util.py", "type": "blob"},
+            {"path": "index.js", "type": "blob"},
+            {"path": "src", "type": "tree"},
+        ]
+
+    monkeypatch.setattr(github_auditor, "get_repo_tree", mock_tree)
+    monkeypatch.setattr(github_auditor, "get_repo_info", lambda *a: {})
+    monkeypatch.setattr(github_auditor, "_fetch_file_content", lambda *a: None)
+
+    result = github_auditor.analyze_repo("o", "r")
+    assert result["ok"] is True
+    assert result["file_count"] == 3
+    assert result["languages"]["Python"] == 2
+    assert result["languages"]["JavaScript"] == 1
+    # Missing README is critical, so score should be well below perfect.
+    assert result["score"] < 80
+    assert any(c["key"] == "readme" and not c["present"] for c in result["checklist"])
+
+
+def test_language_breakdown_ignores_trees():
+    from app_auditor.github_auditor import language_breakdown
+    tree = [
+        {"path": "a.ts", "type": "blob"},
+        {"path": "b.tsx", "type": "blob"},
+        {"path": "dir", "type": "tree"},
+        {"path": "noext", "type": "blob"},
+    ]
+    counts = language_breakdown(tree)
+    assert counts["TypeScript"] == 2
+    assert "noext" not in counts

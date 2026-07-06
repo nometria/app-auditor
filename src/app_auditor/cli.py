@@ -64,6 +64,13 @@ def main():
             print(f"  • {r}")
     else:
         print(f"\nRepo: {result.get('owner')}/{result.get('repo')}")
+        if result.get("grade"):
+            print(f"Readiness: {result['grade']} ({result.get('score')}/100)"
+                  f" · {result.get('file_count', 0)} files")
+        langs = result.get("languages") or {}
+        if langs:
+            top = ", ".join(f"{k} ({v})" for k, v in list(langs.items())[:5])
+            print(f"Languages: {top}")
         detected = [k for k, v in result.get("detected", {}).items() if v]
         print(f"Detected: {', '.join(detected) or 'nothing notable'}")
         if result.get("missing"):

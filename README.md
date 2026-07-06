@@ -59,16 +59,24 @@ app-audit repo myorg/myrepo
 Output:
 ```
 Repo: myorg/myrepo
+Readiness: C (60/100) · 142 files
+Languages: TypeScript (88), CSS (12), JSON (9)
 Detected: vite, react, supabase
 
 Missing:
-  ⚠ No Dockerfile found - containerization recommended for production.
-  ⚠ No GitHub Actions workflows - consider adding CI/CD.
+  ⚠ No Dockerfile found - Containerize for reproducible production deploys.
+  ⚠ No GitHub Actions CI found - Add CI/CD to test and ship every push.
+  ⚠ No .env.example found - Document required env vars so deploys don't fail silently.
 
 Suggestions:
   → Vite SPA: add Dockerfile and ensure server rewrite rules for SPA routing.
   → Supabase: verify RLS, auth flow, and env key exposure in client.
 ```
+
+The repo audit also returns a structured `checklist` (each item has `key`, `label`,
+`severity`, `why`, `present`), a weighted production-readiness `score`/`grade`,
+`file_count`, and a per-language `languages` breakdown — surfaced in full via
+`--format json` and in the Nometria web app.
 
 ### Set GitHub token to avoid rate limiting
 
